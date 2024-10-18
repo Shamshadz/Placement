@@ -3,7 +3,7 @@
 
 ! All Whimsical Links
 
-## Link For DSA
+## Link for DSA
 1. https://whimsical.com/dsa-7hkpLXjD89iEdWxegQhKfD
 
 ## Links for Programming Languages
@@ -25,11 +25,11 @@
 2. React.js- https://whimsical.com/react-js-CA8TFsDX4DWxxj42QHDiKN
 3. Django- https://whimsical.com/django-QpCXKC8hmMEY1A7Wz7Hq9u
 
-## Version Control
+## Links for Version Control
 1. Git/GitHub - https://whimsical.com/git-github-Qh4jVWzER7UtNeCFRuX82E
 
-## DevOps
+## Links for DevOps
 1. Docker - https://whimsical.com/docker-VLYsnKa7EywcQmzcR89gVo
 
-## System Design
+## Links for System Design
 1. Low Level System Design (LLD) - https://whimsical.com/low-level-system-design-Cj9rbaqXbrRE6nudg23pCb
