@@ -33,3 +33,6 @@
 
 ## Links for System Design
 1. Low Level System Design (LLD) - https://whimsical.com/low-level-system-design-Cj9rbaqXbrRE6nudg23pCb
+
+## Links for AI/ML
+1. Machine Learning - https://whimsical.com/machine-learning-QqM6jaXGdhQocjgEqtyj1r
