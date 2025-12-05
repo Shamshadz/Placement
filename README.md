@@ -1,6 +1,6 @@
-# Placement Road-Maps
+# Hey Mate - Be Prepared (Worst is yet to come!)
 
-2024-25 Campus placement
+Personal Diary of My Knowledge in Tech Career
 
 ! All Handwritten notes and Also Code
 
