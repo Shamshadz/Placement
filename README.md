@@ -1,49 +1,50 @@
-# Hey Mate - Be Prepared (Worst is yet to come!)
+# Job-Switch Interview Notes
 
-Personal Diary of My Knowledge in Tech Career
+A revision-focused knowledge base for a backend engineer with 1.2 years of experience and personal AI/CV projects.
 
-! All Handwritten notes and Also Code
+## How to use this repository
 
-! All Whimsical Links
+- One concept gets one Markdown note. Prefer focused notes over topic dumps.
+- Each area has an `INDEX.md` for quick revision and note links.
+- Use [the note template](docs/note-template.md) for new concepts. Capture the interview answer, trade-offs, and a real example—not just definitions.
+- Use `status: draft | reviewed | confident` and update `last-reviewed` when revising.
 
-## Link for DSA
+When you tell me **store** followed by the topics/concepts you covered, I will add or update the appropriate notes and indexes, then update this map when needed.
 
-1. https://whimsical.com/dsa-7hkpLXjD89iEdWxegQhKfD
+## Repository map
 
-## Links for Programming Languages
+| Area | What belongs here | Starting point |
+| --- | --- | --- |
+| [Backend](Backend/) | APIs, auth, caching, messaging, testing | [index](Backend/INDEX.md) |
+| [System Design](System-Design/) | HLD, LLD and distributed-system design | [index](System-Design/INDEX.md) |
+| [AI / ML](AI_ML/) | ML, computer vision and personal AI projects | [index](AI_ML/INDEX.md) |
+| [AI System Design](AI_ML/AI-System-Design/) | RAG, inference, evaluation and AI reliability | [index](AI_ML/AI-System-Design/INDEX.md) |
+| [Data Engineering](Data-Engineering/) | pipelines, warehousing, batch/streaming and quality | [index](Data-Engineering/INDEX.md) |
+| [DevOps](DevOps/) | Docker, AWS, Kafka, CI/CD and observability | [index](DevOps/INDEX.md) |
+| [Databases](Database/) | SQL, schema design, indexing and transactions | [index](Database/INDEX.md) |
+| [Core CS](Core/) | OS, DBMS, networks and OOP | [index](Core/INDEX.md) |
+| [DSA](Data%20structure%20%26%20Algorithm/) | patterns, algorithms and solved problems | [index](Data%20structure%20%26%20Algorithm/INDEX.md) |
+| [Behavioral & CV](Behavioural/) | STAR stories, CV/project talking points | [index](Behavioural/INDEX.md) |
+| [Frontend](Frontend/) | JavaScript/React concepts relevant to role discussions | [index](Frontend/INDEX.md) |
+| [Documentation](docs/) | templates and conventions | [structure guide](docs/STRUCTURE.md) |
 
-1. c/c++ - https://whimsical.com/c-c-XEiNevU6gGRg2znQC9ueqy
-2. Python - https://whimsical.com/python-3YSaQwixgYWR71FdsEZoJE
-3. Java Basic - https://whimsical.com/java-bWvCAvJP6rz7nrS6JAoHF
-4. SQL - https://whimsical.com/sql-VKNsH23oHXirch48uqoeHd
+## Note structure
 
-## Links for all core-subjects
+```text
+<Area>/
+  INDEX.md                 # topic-level revision checklist and note links
+  notes/
+    <concept>.md           # one interview-ready concept
+  projects/
+    <project-name>/
+      README.md            # problem, architecture, trade-offs, lessons
+```
 
-1. DBMS- https://whimsical.com/dbms-roadmap-4wqSBUYzVA3FQJzudFtCgH
-2. OS- https://whimsical.com/operating-system-cheatsheet-6RJ6mEPvLMEBdzRgoVL1Nj
-3. OOPS- https://whimsical.com/object-oriented-programming-BZQfvDb3iEuBSKSuG9SEkh
-4. NETWORKING- https://whimsical.com/networking-cheatsheet-by-love-babbar-BnnR7yyfx5P6nY3zCsUZ15
-5. 4th Year Placement- https://whimsical.com/4th-year-roadmap-to-placement-PRnawLKx2oMv31mQ2WKtGW
-6. Top 450 DSA Questions- https://drive.google.com/file/d/1MSpPOSWUuqVt9nOHJAJJOj3ULhzJOZAr/view?usp=sharing
+For design questions use `designs/<system>.md`; for DSA use `problems/<pattern>/<problem>.md`. Existing material can remain in its current subfolders.
 
-## Links for WEB-DEVELOPEMENT ROADMAP
+## Legacy learning resources
 
-1. Javascript- https://whimsical.com/javascript-NDFCQdP3cNFTYrbJYj18tV
-2. React.js- https://whimsical.com/react-js-CA8TFsDX4DWxxj42QHDiKN
-3. Django- https://whimsical.com/django-QpCXKC8hmMEY1A7Wz7Hq9u
-
-## Links for Version Control
-
-1. Git/GitHub - https://whimsical.com/git-github-Qh4jVWzER7UtNeCFRuX82E
-
-## Links for DevOps
-
-1. Docker - https://whimsical.com/docker-VLYsnKa7EywcQmzcR89gVo
-
-## Links for System Design
-
-1. Low Level System Design (LLD) - https://whimsical.com/low-level-system-design-Cj9rbaqXbrRE6nudg23pCb
-
-## Links for AI/ML
-
-1. Machine Learning - https://whimsical.com/machine-learning-QqM6jaXGdhQocjgEqtyj1r
+- [DSA roadmap](https://whimsical.com/dsa-7hkpLXjD89iEdWxegQhKfD)
+- [Java roadmap](https://whimsical.com/java-bWvCAvJP6rz7nrS6JAoHF), [Python roadmap](https://whimsical.com/python-3YSaQwixgYWR71FdsEZoJE), [SQL roadmap](https://whimsical.com/sql-VKNsH23oHXirch48uqoeHd)
+- [DBMS roadmap](https://whimsical.com/dbms-roadmap-4wqSBUYzVA3FQJzudFtCgH), [OS cheatsheet](https://whimsical.com/operating-system-cheatsheet-6RJ6mEPvLMEBdzRgoVL1Nj), [networking cheatsheet](https://whimsical.com/networking-cheatsheet-by-love-babbar-BnnR7yyfx5P6nY3zCsUZ15)
+- [Docker roadmap](https://whimsical.com/docker-VLYsnKa7EywcQmzcR89gVo), [LLD roadmap](https://whimsical.com/low-level-system-design-Cj9rbaqXbrRE6nudg23pCb), [ML roadmap](https://whimsical.com/machine-learning-QqM6jaXGdhQocjgEqtyj1r)
