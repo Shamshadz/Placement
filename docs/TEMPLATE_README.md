@@ -1,23 +1,11 @@
-TEMPLATE README — copy this into topic folders
+# FOLDER_NAME
 
-# {FOLDER_NAME}
+## Purpose
 
-Short description
-- Purpose: One-line purpose of this folder.
+One-line description of the interview topics covered here.
 
-Suggested subfolders
-- notes/       — markdown notes, summaries
-- pdfs/        — reference PDFs and papers
-- problems/    — problem statements or exercises
-- solutions/   — code and explanations
-- projects/    — small demos or examples
+## Notes
 
-How to use
-- Add a `README.md` inside each project with quick run instructions.
-- Use `YYYY-MM-DD_short-desc.ext` for time-stamped notes.
-
-Checklist
-- [ ] Add `notes/` with main topics
-- [ ] Add at least one `project/` entry with a `README.md`
-
-Replace `{FOLDER_NAME}` with the folder name when copying.
+- Store Markdown notes only under notes/.
+- Link every note from INDEX.md.
+- Use lowercase, hyphenated file names.

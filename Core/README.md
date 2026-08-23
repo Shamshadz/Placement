@@ -1,12 +1,3 @@
-Core Computer Science — CN / DBMS / OS
+# Core Computer Science
 
-Purpose
-- Store concise notes, cheat-sheets, and small example programs for core CS topics.
-
-Suggested subfolders
-- notes/       — topic summaries (e.g., `os/`, `dbms/`, `cn/`)
-- problems/    — practice problems and short exercises
-- solutions/   — reference solutions and annotated explanations
-
-How to use
-- Keep one `README.md` per topic subfolder (e.g., `OS/README.md`) with a study checklist and quick formulas.
+Store Markdown revision notes for operating systems, DBMS, computer networks, and OOP. Use the topic index to link each note.

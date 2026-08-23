@@ -1,4 +1,3 @@
-This section contains the handwitten notes and codes of each data structure and algorithm
-and also important problems & template on each sections
+# Data Structures and Algorithms
 
-! Each folder had handwritten notes and codes
+Store Markdown notes for patterns, data structures, algorithms, and solution explanations. Do not add source-code solutions; explain the approach, complexity, and edge cases in the note.

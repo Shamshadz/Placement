@@ -1,12 +1,3 @@
-DevOps — AWS, Docker, Kafka
+# DevOps
 
-Purpose
-- Keep deployment guides, command snippets, and architecture notes for DevOps topics.
-
-Suggested subfolders
-- cheatsheets/  — common commands and snippets (docker, kubectl, terraform)
-- labs/         — step-by-step lab exercises
-- diagrams/     — architecture diagrams (png, drawio)
-
-How to use
-- Keep scripts executable and include a short `README.md` describing prerequisites and steps.
+Store Markdown revision notes for containers, cloud, CI/CD, observability, security, and deployment decisions. Keep commands as short explanatory snippets only when they support the concept.

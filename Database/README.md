@@ -1,12 +1,3 @@
-Database — MySQL and others
+# Database
 
-Purpose
-- Store cheat-sheets, schema design examples, and SQL practice queries.
-
-Suggested subfolders
-- notes/       — normalization, indexing, transactions
-- examples/    — sample schemas and ER diagrams
-- queries/     — useful queries and performance notes
-
-How to use
-- Add `README.md` in schema/example folders with sample data and run steps.
+Store Markdown revision notes for SQL, schema design, indexing, transactions, and database operations. Use prose or small query fragments only when they clarify the note.
