@@ -5,6 +5,7 @@
 - [ ] ML fundamentals: data splits, metrics, overfitting and experiments
 - [ ] Computer vision: preprocessing, model choices, evaluation and deployment
 - [ ] [Computer vision revision index](Computer%20Vision/INDEX.md)
+- [ ] [LLM revision index](LLM/INDEX.md)
 - [ ] Personal projects: problem, data, architecture, results and limitations
 
 ## Notes

@@ -19,6 +19,7 @@ When you tell me **store** followed by the topics/concepts you covered, I will a
 | [Backend](Backend/) | APIs, auth, caching, messaging, testing | [index](Backend/INDEX.md) |
 | [System Design](System-Design/) | HLD, LLD and distributed-system design | [index](System-Design/INDEX.md) |
 | [AI / ML](AI_ML/) | ML, computer vision and AI project interview notes | [index](AI_ML/INDEX.md) |
+| [LLM Engineering](AI_ML/LLM/) | transformers, training, fine-tuning, alignment, and RAG decisions | [index](AI_ML/LLM/INDEX.md) |
 | [AI System Design](AI_ML/AI-System-Design/) | RAG, inference, evaluation and AI reliability | [index](AI_ML/AI-System-Design/INDEX.md) |
 | [Data Engineering](Data-Engineering/) | pipelines, warehousing, batch/streaming and quality | [index](Data-Engineering/INDEX.md) |
 | [DevOps](DevOps/) | Docker, AWS, Kafka, CI/CD and observability | [index](DevOps/INDEX.md) |
