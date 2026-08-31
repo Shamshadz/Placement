@@ -39,3 +39,35 @@ Logits are unnormalized scores. Softmax converts logits to probabilities concept
 ## My example
 
 Be ready to trace one mini-batch through tokenization, embeddings, logits, loss, gradients, and optimizer update. State which parameters are frozen when the training method is LoRA or QLoRA.
+
+## Detailed training flow
+
+~~~mermaid
+flowchart LR
+  D[Tokenized sequence] --> X[Inputs: tokens 0 to T-2]
+  D --> Y[Labels: tokens 1 to T-1]
+  X --> M[Language model]
+  M --> L[Logits B,T,V]
+  L --> CE[Cross-entropy with labels]
+  Y --> CE
+  CE --> G[Backpropagate gradients]
+  G --> O[Optimizer updates trainable parameters]
+  O --> M
+~~~
+
+## Worked loss intuition
+
+At one position, the target is one vocabulary ID. Cross-entropy penalizes the negative log probability assigned to that ID. If the target probability is 0.8, loss is low; if it is 0.001, loss is high. Across a batch, sum or average only valid, non-padding target positions. In causal training, a token can attend to itself and earlier context while predicting the next-token label aligned at that position.
+
+## Production considerations
+
+- Save model, tokenizer, training configuration, random seeds, dataset version, and evaluation results as one reproducible run.
+- Use gradient clipping, loss monitoring, and checkpointing to recover from instability.
+- Separate training throughput from serving latency; optimizing one does not guarantee the other.
+- Confirm that labels mask user/system prompts appropriately when training assistant responses only.
+
+## Revision checklist
+
+- [ ] I can describe each operation in one training step in order.
+- [ ] I can explain why padding must be excluded from loss.
+- [ ] I can explain how SFT labels differ from generic next-token labels.

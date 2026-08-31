@@ -43,3 +43,42 @@ Approximate base-weight storage is parameter-count times bytes per parameter. Fo
 
 - [QLoRA paper](https://arxiv.org/abs/2305.14314)
 - [LoRA paper](https://arxiv.org/abs/2106.09685)
+
+## Detailed QLoRA flow
+
+~~~mermaid
+flowchart LR
+  W[Pretrained weights] --> Q[Quantize and freeze base model]
+  Q --> F[Forward computation]
+  X[Training batch] --> F
+  F --> L[Loss]
+  L --> G[Backpropagate through base]
+  G --> A[Update LoRA adapters]
+  A --> F
+~~~
+
+## Memory budget checklist
+
+Estimate all of these before a run:
+
+    base weights + LoRA weights + gradients + optimizer states
+    + activations + attention/KV-related temporaries + framework overhead
+
+Activation memory grows with batch size, sequence length, layers, and hidden width. Gradient checkpointing reduces activation memory by recomputing portions of the forward pass, trading memory for extra compute. Gradient accumulation raises effective batch size without simultaneously storing a large batch.
+
+## Practical experiment
+
+Run the same small validation set with a full-precision LoRA baseline and a QLoRA configuration. Compare task quality, output stability, peak memory, training throughput, and inference latency. If QLoRA quality regresses, first verify quantization settings, compute dtype, sequence length, and data pipeline before increasing rank.
+
+## Production considerations
+
+- Check GPU architecture support for the selected compute dtype and quantization kernel.
+- Quantization changes the base artifact; pin library versions and test loading from a clean environment.
+- Use memory telemetry and stop conditions to avoid out-of-memory retries masking a configuration problem.
+- Benchmark cold start, adapter attachment, and batch inference rather than quoting model-only memory.
+
+## Revision checklist
+
+- [ ] I can enumerate why total training memory exceeds quantized-weight storage.
+- [ ] I can explain NF4, double quantization, and paged optimizers at a high level.
+- [ ] I can design a memory-safe experiment on a constrained GPU.

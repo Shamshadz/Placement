@@ -41,3 +41,38 @@ The causal mask is lower triangular. Before softmax, entries that point to futur
 ## References
 
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+
+## Detailed attention flow
+
+~~~mermaid
+flowchart LR
+  X[Hidden states B,T,C] --> QKV[Linear projection to Q,K,V]
+  QKV --> S[Split into H heads]
+  S --> Q[Queries]
+  S --> K[Keys]
+  S --> V[Values]
+  Q --> A[Scaled QK transpose scores]
+  K --> A
+  A --> M[Apply causal mask]
+  M --> W[Softmax attention weights]
+  W --> O[Weighted sum of V]
+  V --> O
+  O --> C[Concatenate heads and output projection]
+~~~
+
+## Worked shape trace
+
+With B=2, T=32, C=64, H=4, D=16: the QKV projection first creates [2,32,192], then reshapes/splits to three tensors of [2,4,32,16]. Each head calculates a 32 by 32 relation matrix. The causal mask permits entries on and below the diagonal only. After weighting V, concatenate four 16-dimensional head outputs to return [2,32,64].
+
+## Production considerations
+
+- Use a numerically stable attention implementation; masking after softmax is wrong because forbidden positions still affect normalization.
+- Cache K and V per layer during autoregressive generation, and bound cache memory for long sessions.
+- Monitor input length, truncation, and attention-memory failures separately from model-quality metrics.
+- For long context, evaluate alternative attention implementations or retrieval; do not assume a larger context window solves relevance.
+
+## Revision checklist
+
+- [ ] I can calculate the QK transpose shape for any B, T, H, and D.
+- [ ] I can explain why mask values are applied before softmax.
+- [ ] I can explain why generation benefits from a KV cache.

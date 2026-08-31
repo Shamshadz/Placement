@@ -46,3 +46,35 @@ For Ultralytics YOLO detection, each image has an optional matching .txt file. E
 
 - [Ultralytics detection dataset format](https://docs.ultralytics.com/datasets/detect/)
 - [Ultralytics annotation guide](https://docs.ultralytics.com/guides/data-collection-and-annotation/)
+
+## Detailed annotation lifecycle
+
+~~~mermaid
+flowchart LR
+  A[Define ontology and policy] --> B[Sample representative data]
+  B --> C[Annotate]
+  C --> D[Quality assurance]
+  D --> E[Split by camera or sequence]
+  E --> F[Train and evaluate]
+  F --> G[Analyze errors]
+  G --> A
+~~~
+
+An ontology specifies what each class means. A policy resolves ambiguous cases before labeling begins: whether to label an object that is partly outside frame, how much of an occluded object must be visible, whether reflections count, and when to use an ignore region. Without this, different annotators create inconsistent targets that the model cannot learn reliably.
+
+## Worked box conversion example
+
+For an image of width 1920 and height 1080, a pixel box with left=480, top=270, width=960, height=540 has centre=(960, 540). Its YOLO-format values are class-id, 0.5, 0.5, 0.5, 0.5. Normalize x values by 1920 and y values by 1080. Validate conversions visually because swapped width/height or pixel/normalized coordinates produce silently broken training.
+
+## Production considerations
+
+- Keep source, annotation revision, labeling policy, and dataset split versioned outside the model artifact.
+- Measure inter-annotator agreement on difficult samples; use adjudication for disagreements.
+- Review model errors by slice: camera, time, object size, lighting, class, occlusion, and motion blur.
+- For tracking, persistent IDs must be consistent within a sequence; do not reuse an ID for a different object later in the same sequence.
+
+## Revision checklist
+
+- [ ] I can choose the annotation type for detection, segmentation, pose, and tracking.
+- [ ] I can convert a pixel box to normalized centre-width-height format.
+- [ ] I can write an occlusion and ambiguity policy before annotation starts.

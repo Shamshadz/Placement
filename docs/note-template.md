@@ -13,6 +13,18 @@ Explain the idea as you would in an interview: definition, purpose, and when it 
 
 Describe the important components or flow. Add a small diagram, example, or pseudocode when it helps.
 
+## Architecture or flow diagram
+
+Add a Mermaid diagram when it materially clarifies the component relationships, lifecycle, or data flow.
+
+    flowchart LR
+      A[Input] --> B[Processing]
+      B --> C[Output]
+
+## Detailed explanation
+
+Explain the important components, interfaces, assumptions, mathematics or algorithm, and a worked example. Include trade-offs, failure modes, and production considerations when relevant.
+
 ## Trade-offs and pitfalls
 
 | Choice / concern | Why it matters |

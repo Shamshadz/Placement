@@ -47,3 +47,37 @@ For a video analytics project, state the chosen model/task, input size, device, 
 
 - [Ultralytics model/task overview](https://docs.ultralytics.com/models/)
 - [YOLO architecture review](https://arxiv.org/abs/2304.00501)
+
+## Model-selection flow
+
+~~~mermaid
+flowchart TD
+  A[Define product task] --> B{Output needed?}
+  B -->|Boxes| C[Detection]
+  B -->|Masks| D[Segmentation]
+  B -->|Keypoints| E[Pose]
+  B -->|Rotated boxes| F[OBB]
+  C --> G[Choose model size and input resolution]
+  D --> G
+  E --> G
+  F --> G
+  G --> H[Benchmark accuracy, latency, memory, licence]
+  H --> I[Validate on production slices]
+~~~
+
+## Detailed selection criteria
+
+Start with task fit, then constrain by deployment. Measure per-class precision/recall and object-size slices on the real camera/domain. Measure complete latency on the actual target device, including preprocessing and post-processing. Only then compare model sizes or families. A large model with better benchmark mAP may be worse than a smaller model if it violates the real-time latency budget.
+
+## Production considerations
+
+- Keep a model card: checkpoint, task, labels, data date range, metrics, known gaps, licence, and hardware benchmark.
+- Verify class-name ordering at inference; a correct box with a shifted label map is still a production failure.
+- Validate confidence calibration before mapping scores to safety or alert policies.
+- Record input resolution and resize mode because changing either changes the effective model behaviour.
+
+## Revision checklist
+
+- [ ] I can choose detection versus segmentation versus pose from output requirements.
+- [ ] I can explain why an offline benchmark does not select a production model alone.
+- [ ] I can list the artifacts required to reproduce a deployed model result.

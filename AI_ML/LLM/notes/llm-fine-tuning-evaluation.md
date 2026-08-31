@@ -34,3 +34,35 @@ Supervised fine-tuning uses desired responses. Preference optimization uses pair
 ## References
 
 - [Direct Preference Optimization paper](https://arxiv.org/abs/2305.18290)
+
+## Detailed evaluation flow
+
+~~~mermaid
+flowchart LR
+  A[Define product rubric] --> B[Build held-out test set]
+  B --> C[Run base model]
+  B --> D[Run fine-tuned model]
+  C --> E[Compare quality, risk, cost, latency]
+  D --> E
+  E --> F[Slice and error analysis]
+  F --> G[Release decision and regression suite]
+~~~
+
+## Evaluation design
+
+Freeze the test dataset before model selection where possible. Define pass/fail criteria per category: factual correctness, JSON/schema validity, policy adherence, refusal quality, tool-call success, latency, and cost. Compare outputs blinded to model identity for human ratings. Sample difficult slices deliberately: long context, rare intents, adversarial requests, multilingual prompts, and domain-specific edge cases.
+
+For preference data, each example contains the same prompt plus a chosen and rejected response. DPO raises the model's relative preference for chosen responses without separately fitting a reward model. It simplifies training, but its result still depends on preference-data coverage and quality.
+
+## Production considerations
+
+- Log model ID, prompt template, decoding parameters, tool versions, retrieval state, and evaluator version with every benchmark result.
+- Build a regression suite from past production failures, then rerun it before every model or prompt release.
+- Use human escalation for safety-critical, legal, medical, or high-impact evaluation; automated judge scores alone are insufficient.
+- Monitor live quality through sampled review, explicit user feedback, abstention rate, safety events, and distribution shift.
+
+## Revision checklist
+
+- [ ] I can design a fair base-versus-fine-tuned comparison.
+- [ ] I can separate task success, response quality, operational metrics, and safety metrics.
+- [ ] I can explain the input structure and purpose of DPO.

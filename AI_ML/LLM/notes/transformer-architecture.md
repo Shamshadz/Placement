@@ -48,3 +48,37 @@ For a tiny decoder-only implementation, use B=batch size, T=context length, C=em
 ## References
 
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+
+## Detailed architecture diagram
+
+~~~mermaid
+flowchart LR
+  T[Token IDs] --> TE[Token embedding]
+  P[Position IDs] --> PE[Position embedding]
+  TE --> S[Add embeddings]
+  PE --> S
+  S --> B1[Transformer block 1]
+  B1 --> BN[Transformer block N]
+  BN --> LN[Final LayerNorm]
+  LN --> H[LM head]
+  H --> L[Logits over vocabulary]
+~~~
+
+## Block-level lifecycle
+
+In a pre-normalized decoder block, apply LayerNorm before attention, add the attention output to the residual stream, then apply LayerNorm before the feed-forward network and add that output too. The residual stream lets the layer make an incremental change instead of replacing the representation; this improves gradient flow and lets each block specialize.
+
+For C=64 and H=4 heads, each head uses D=16 dimensions. A feed-forward network might project 64 to 256, apply GELU, then project 256 back to 64. The sequence length stays unchanged through the block; only the vocabulary projection changes the last dimension from C to V.
+
+## Production considerations
+
+- Context length, vocabulary, width, layers, and heads jointly determine memory, latency, and capability.
+- Cache key/value tensors during generation; otherwise every next token recomputes attention over the entire prefix.
+- Verify tokenizer and model vocabulary compatibility. Token-ID mismatch invalidates every downstream result.
+- Record parameter count, maximum context, precision, batch size, and tokens-per-second for serving comparisons.
+
+## Revision checklist
+
+- [ ] I can trace shapes from token IDs through logits.
+- [ ] I can explain the residual stream and pre-normalization order.
+- [ ] I can identify why decoder-only and encoder-only architectures serve different tasks.

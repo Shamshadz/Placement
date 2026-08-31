@@ -55,3 +55,38 @@ MOTA mixes false positives, misses, and identity switches; IDF1 emphasizes ident
 - [BoT-SORT paper](https://arxiv.org/abs/2206.14651)
 - [OC-SORT paper](https://arxiv.org/abs/2203.14360)
 - [StrongSORT paper](https://arxiv.org/abs/2202.13514)
+
+## Detailed tracking lifecycle
+
+~~~mermaid
+flowchart LR
+  A[Detector boxes] --> B[Predict each Kalman state]
+  B --> C[Gate candidate pairs]
+  C --> D[Cost: motion, IoU, appearance]
+  D --> E[One-to-one assignment]
+  E --> F[Update matched tracks]
+  E --> G[Age unmatched tracks]
+  A --> H[Create candidate tracks]
+  H --> I[Confirm after evidence]
+  F --> J[Emit stable IDs]
+  I --> J
+~~~
+
+The Kalman filter maintains a state mean and uncertainty. Prediction advances the state using a motion model and increases uncertainty. Update combines a matched detection with the prediction; an uncertain prediction should accept a wider candidate region than a confident one. Hungarian assignment chooses a one-to-one minimum-cost set after impossible pairs are gated out.
+
+## Worked association example
+
+At frame t, a track predicts a person box near x=200. Two detector boxes appear: one with high IoU and matching appearance, another nearby with a different embedding. Geometry and appearance together should choose the first. During an occlusion, ByteTrack can use a lower-confidence detection to keep the trajectory alive; StrongSORT may rely more on appearance; OC-SORT corrects motion using observations after the occlusion.
+
+## Production considerations
+
+- Tune detector confidence, maximum lost age, match threshold, and ReID threshold jointly on representative videos.
+- Log ID switches, track fragmentation, unmatched detections, time since update, and per-camera failures.
+- Benchmark HOTA/IDF1 alongside MOTA, throughput, and latency; MOTA can hide identity errors.
+- Protect against a sudden detector outage by exposing track confidence and avoiding unsafe downstream actions based on extrapolated tracks alone.
+
+## Revision checklist
+
+- [ ] I can distinguish prediction, gating, assignment, update, confirmation, and deletion.
+- [ ] I can explain why a Kalman filter does not solve identity association by itself.
+- [ ] I can choose a tracker based on camera motion, occlusion, ReID cost, and latency.

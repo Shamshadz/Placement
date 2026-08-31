@@ -51,3 +51,39 @@ A and B are not calculated from W. They are initialized and learned through the 
 ## References
 
 - [LoRA paper](https://arxiv.org/abs/2106.09685)
+
+## Detailed adapter flow
+
+~~~mermaid
+flowchart LR
+  X[Layer input x] --> W[Frozen base projection W]
+  X --> A[Trainable low-rank A]
+  A --> B[Trainable low-rank B]
+  W --> S[Add outputs]
+  B --> S
+  S --> Y[Layer output]
+  L[Loss] --> G[Gradients update A and B only]
+  G --> A
+  G --> B
+~~~
+
+## Parameter-count example
+
+For a 4096 by 4096 projection, full fine-tuning exposes 16,777,216 parameters in that matrix. With rank r=8, A has 8 by 4096 parameters and B has 4096 by 8, totaling 65,536 trainable parameters before any optional bias. This is why LoRA is attractive when adapters are attached selectively to large model projections.
+
+## Selecting a LoRA configuration
+
+Choose target modules based on the model architecture and task; document them instead of copying a configuration blindly. Start with a modest rank and controlled dataset/evaluation, then compare rank, alpha, dropout, and target-module ablations. A larger rank can overfit small data or consume unnecessary memory.
+
+## Production considerations
+
+- Store adapter weights, base-model revision, tokenizer, target modules, rank, alpha, and prompt template together.
+- Verify merge/unmerge parity on representative prompts if adapters are merged into base weights.
+- Support adapter versioning and rollback; different tenants/tasks may require isolated adapters.
+- Benchmark adapter load time and concurrent-adapter memory when serving multiple specializations.
+
+## Revision checklist
+
+- [ ] I can derive A, B, and delta-W shapes from a base linear layer.
+- [ ] I can calculate the trainable-parameter reduction for a chosen rank.
+- [ ] I can explain how adapter configuration becomes a reproducible deployment artifact.

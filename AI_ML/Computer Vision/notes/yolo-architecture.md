@@ -80,3 +80,36 @@ Document the exact checkpoint, input size, which detection scales were used, con
 - [Original YOLO paper](https://arxiv.org/abs/1506.02640)
 - [Ultralytics YOLO architecture guide](https://docs.ultralytics.com/guides/yolo-architecture)
 - [Feature Pyramid Networks paper](https://arxiv.org/abs/1612.03144)
+
+## Detailed inference flow
+
+~~~mermaid
+flowchart LR
+  I[Source image] --> P[Resize and normalize]
+  P --> B[Backbone: multi-scale features]
+  B --> N[Neck: FPN and PAN fusion]
+  N --> H[Detection head at multiple scales]
+  H --> D[Decode boxes and class scores]
+  D --> F[Confidence filter]
+  F --> O[NMS or end-to-end selection]
+  O --> R[Boxes, classes, confidences]
+~~~
+
+For a 640 by 640 input, a typical three-scale detector predicts on feature maps with strides 8, 16, and 32. A stride-8 map has 80 by 80 locations and is useful for small objects; stride-32 has 20 by 20 locations and carries broader context for large objects. The exact number of scales and head design depend on the checkpoint.
+
+## Worked deployment example
+
+For person detection in a warehouse camera, begin with a baseline at the camera's real resolution and measure end-to-end latency: decode, resize, model inference, post-processing, and tracker handoff. If small-person recall is weak, inspect labels and object pixel sizes first; then test higher input resolution or a model with a better small-object scale. Do not increase resolution blindly: it can reduce FPS enough to make the tracker miss motion between frames.
+
+## Production considerations
+
+- Version the checkpoint, label map, preprocessing policy, confidence threshold, NMS threshold, and hardware together.
+- Monitor per-class confidence distribution, false positives, missed small objects, and latency percentiles, not just offline mAP.
+- Test aspect-ratio changes, low light, blur, camera motion, crowded scenes, and objects crossing image boundaries.
+- When detection feeds tracking, tune detector confidence and NMS together with the tracker; the best detection mAP configuration may not give the best identity stability.
+
+## Revision checklist
+
+- [ ] I can draw backbone, neck, head, and post-processing from memory.
+- [ ] I can explain why multi-scale fusion is needed.
+- [ ] I can diagnose low small-object recall without only changing the model version.
