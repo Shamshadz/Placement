@@ -45,6 +45,8 @@ Decoder-only models use causal masking and predict the next token, so they are s
 
 For a tiny decoder-only implementation, use B=batch size, T=context length, C=embedding dimension, H=heads, D=C/H, and V=vocabulary size. Track every tensor shape rather than treating the block as a black box.
 
+- [TINY TRANSFORMER](https://colab.research.google.com/drive/1NIAv1cOq3acUoHkBzppcJHwvtQPSttDa#scrollTo=472qcIzKLE_e)
+
 ## References
 
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
